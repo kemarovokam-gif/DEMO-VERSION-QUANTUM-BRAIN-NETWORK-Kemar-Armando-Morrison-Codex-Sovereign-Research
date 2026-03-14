@@ -1,0 +1,2 @@
+# DEMO-VERSION-QUANTUM-BRAIN-NETWORK-Kemar-Armando-Morrison-Codex-Sovereign-Research
+Demonstration of the Quantum Brain Network — a safe, GREEN-only simulation of a governance-stabilized adaptive system. Illustrates multi-dimensional coherence monitoring and pre-instantiation drift control without exposing proprietary algorithms. Designed for visualization, educational purposes, and safe experimentation.
