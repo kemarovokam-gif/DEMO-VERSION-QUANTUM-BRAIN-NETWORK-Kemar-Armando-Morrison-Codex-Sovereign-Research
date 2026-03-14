@@ -1,0 +1,55 @@
+"""
+DEMO VERSION — QUANTUM BRAIN NETWORK
+Kemar Armando Morrison — Codex Sovereign Research
+Safe Mobile Demo — Shows GREEN behaviour only
+March 2026
+"""
+
+import numpy as np
+
+class CoreSystem:
+    def __init__(self):
+        self.threshold = 3.5
+        self.world_model = np.sin(2 * np.pi * np.linspace(0, 10, 128)) * 5.0
+        self.lab_state = np.random.randn(128) * 0.3
+        self.step_count = 0
+
+    def calculate_score(self, state):
+        state = np.clip(np.array(state).flatten(), -10, 10)
+        variance = np.var(state) + 1e-8
+        score = 1.0 / (variance ** 3)
+        return score - self.threshold
+
+    def decide_action(self, score):
+        return 0.0 if score <= 0 else -8.0 * max(0.0, score)
+
+    def step(self):
+        self.step_count += 1
+        state = self.world_model + self.lab_state
+        score = self.calculate_score(state)
+        action = self.decide_action(score)
+        governed = np.array(state) + action
+        new_state = np.clip(governed, -10, 10)
+        status = "GREEN" if score <= -0.5 else "BLUE" if score <= 0 else "AMBER" if score <= 1 else "RED"
+        self.world_model = 0.98 * self.world_model + 0.02 * new_state
+        return {
+            'step': self.step_count,
+            'delta': score,
+            'status': status,
+            'action': action
+        }
+
+
+# ==================== RUN THIS ====================
+if __name__ == "__main__":
+    print("QUANTUM BRAIN NETWORK — DEMO VERSION")
+    print("Kemar Armando Morrison, Codex Sovereign Research\n")
+    
+    system = CoreSystem()
+    
+    print("Step | Delta    | Status            | Action")
+    print("-" * 50)
+    
+    for _ in range(30):
+        res = system.step()
+        print(f"{res['step']:2d}   | {res['delta']:+.3f} | {res['status']:15} | {res['action']:+.3f}")
